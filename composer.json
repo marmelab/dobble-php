@@ -1,4 +1,10 @@
 {
+    "name": "marmelab/dobble-php",
+    "license": "MIT",
+    "description": "Command-line card generator for dobble-like game",
+    "autoload": {
+       "psr-4": {"": "src/"}
+    },
     "require": {
         "symfony/console": "^2.7"
     }
