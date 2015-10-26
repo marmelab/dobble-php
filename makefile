@@ -1,5 +1,5 @@
 install:
-	composer install --prefer-source
+	composer install --dev --prefer-source
 
 test:
-	exit 0
+	composer test

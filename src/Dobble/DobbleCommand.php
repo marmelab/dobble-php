@@ -28,7 +28,7 @@ class DobbleCommand extends Command
         if ($nb_elements <= 0) {
             $output->writeln('<error>Number of elements must be a postive integer</error>');
 
-            return 0;
+            return 1;
         }
 
         $output->writeln(sprintf('Elements per card <info>%d</info>', $nb_elements));
