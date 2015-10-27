@@ -2,9 +2,7 @@
 
 namespace Marmelab\Dobble;
 
-use Countable;
-
-class Card implements Countable
+class Card implements \Countable
 {
     /**
      * @todo DobbleSymbol class
@@ -14,6 +12,11 @@ class Card implements Countable
     public function __construct(array $symbols)
     {
         $this->symbols = $symbols;
+
+        // The deck validation uses the fonction "array_unique" to check
+        // if some cards have same values, so we need to sort symbols
+        // for avoid that same values seems differents.
+        asort($this->symbols);
     }
 
     public function __toString()

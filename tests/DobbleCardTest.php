@@ -16,7 +16,7 @@ class DobbleCardTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validIterables
      */
-    public function testCardAcceptIterable($iterable)
+    public function testCardConstructorAcceptsIterable($iterable)
     {
         $card = new Card($iterable);
         $this->assertEquals($card->getSymbols(), $iterable);
@@ -36,14 +36,13 @@ class DobbleCardTest extends \PHPUnit_Framework_TestCase
      * @dataProvider invalidValues
      * @expectedException TypeError
      */
-    public function testCardRefuseNonIterable($value)
+    public function testCardConstructorRefusesNonIterable($value)
     {
         $card = new Card($value);
     }
 
     /**
      * @dataProvider validIterables
-     * @depends testCardAcceptIterable
      */
     public function testCardIsCountable($iterable)
     {

@@ -5,7 +5,7 @@ use Marmelab\Dobble\Deck;
 
 class DobbleDeckTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDeckAcceptEmpty()
+    public function testDeckConstructorAcceptsEmpty()
     {
         $deck = new Deck();
         $this->assertTrue(empty($deck->getCards()));
@@ -23,7 +23,7 @@ class DobbleDeckTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validCards
      */
-    public function testDeckAcceptValidCards($cards)
+    public function testDeckConstructorAcceptsValidCards($cards)
     {
         $deck = new Deck($cards);
         $this->assertEquals($deck->getCards(), $cards);
@@ -32,29 +32,53 @@ class DobbleDeckTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException TypeError
      */
-    public function testDeckRefuseOtherThanCard()
+    public function testDeckConstructorRefusesOtherThanCard()
     {
         $deck = new Deck(['not', 'cards']);
     }
 
-    public function testDeckRefuseOtherThanIterable()
+    /**
+     * @expectedException TypeError
+     */
+    public function testDeckConstructorRefusesOtherThanIterable()
     {
-        try {
-            $deck = new Deck('not an iterable');
-            $this->fail('Deck must refuse non iterable value.');
-        } catch (\InvalidArgumentException $e) {
-            // Test pass
-        }
+        $deck = new Deck('not an iterable');
     }
 
     /**
      * @dataProvider validCards
-     * @depends testDeckAcceptValidCards
      */
     public function testDeckIsCountable($iterable)
     {
         $deck = new Deck($iterable);
         $this->assertTrue($deck instanceof \Countable);
         $this->assertEquals(count($deck), count($iterable));
+    }
+
+    /**
+     * @dataProvider validCards
+     */
+    public function testDeckValidatesGoodCards($iterable)
+    {
+        $deck = new Deck($iterable);
+        $this->assertTrue($deck->validate());
+    }
+
+    public function testDeckNotValidatesEmpty()
+    {
+        $deck = new Deck();
+        $this->assertFalse($deck->validate());
+    }
+
+    public function testDeckNotValidatesMultipleSameCards()
+    {
+        $deck = new Deck([new Card([1, 2]), new Card([2, 1])]);
+        $this->assertFalse($deck->validate());
+    }
+
+    public function testDeckNotValidatesCardWithNotSameNumberOfSymbol()
+    {
+        $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
+        $this->assertFalse($deck->validate());
     }
 }

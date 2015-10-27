@@ -15,7 +15,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         $this->cmdTester = new CommandTester($this->cmd);
     }
 
-    public function testCommandAcceptPositiveInteger()
+    public function testCommandAcceptsPositiveInteger()
     {
         $elementsPerCard = rand();
 
@@ -42,7 +42,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidValues
      */
-    public function testCommandRefuseNonPositiveInteger($value)
+    public function testCommandRefusesNonPositiveInteger($value)
     {
         $this->cmdTester->execute([
             'command' => $this->cmd->getName(),
@@ -50,7 +50,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertRegExp(
-            '/must be a postive integer/',
+            '/must be a positive integer/',
             $this->cmdTester->getDisplay()
         );
     }
