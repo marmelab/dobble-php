@@ -22,4 +22,5 @@ php src/application.php dobble:run -h
 # Unit tests
 
 ```bash
-make test```
+make test
+```
