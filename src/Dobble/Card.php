@@ -9,6 +9,25 @@ class Card implements \Countable
      */
     private $symbols = [];
 
+    public static function getUniqueSymbols(int $elementsPerCard)
+    {
+        if ($elementsPerCard <= 0) {
+            $symbols = [];
+        } elseif ($elementsPerCard <= 4) {
+            $symbols = ['heart', 'club', 'diamond', 'spade'];
+        } elseif ($elementsPerCard <= 26) {
+            $symbols = [
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                'Y', 'Z',
+            ];
+        } else {
+            $symbols = range(1, $elementsPerCard);
+        }
+
+        return $symbols;
+    }
+
     public function __construct(array $symbols)
     {
         $this->symbols = $symbols;

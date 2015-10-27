@@ -25,7 +25,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertRegExp(
-            sprintf('/Elements per card %d/', $elementsPerCard),
+            sprintf('/Elements per card: %d/', $elementsPerCard),
             $this->cmdTester->getDisplay()
         );
     }

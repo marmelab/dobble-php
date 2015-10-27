@@ -23,14 +23,27 @@ class DobbleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $nb_elements = $input->getArgument('elements_per_card');
+        $nbElements = $input->getArgument('elements_per_card');
 
-        if ($nb_elements <= 0) {
+        if ($nbElements <= 0) {
             $output->writeln('<error>Number of elements must be a positive integer</error>');
 
             return 1;
         }
 
-        $output->writeln(sprintf('Elements per card <info>%d</info>', $nb_elements));
+        try {
+            $deck = Deck::generate($nbElements);
+        } catch (DobbleException $e) {
+            $output->writeln(sprintf('Error: <error>%s</error>', $e->getMessage()));
+
+            return 1;
+        }
+
+        $output->writeln(sprintf('Elements per card: <info>%d</info>', $nbElements));
+        $output->writeln(sprintf('Deck generated with <info>%d</info> cards', count($deck)));
+        $output->writeln('Cards :');
+        foreach ($deck->getCards() as $card) {
+            $output->writeln(sprintf('- %s', $card));
+        }
     }
 }
