@@ -15,15 +15,6 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         $this->cmdTester = new CommandTester($this->cmd);
     }
 
-    public function invalidValues()
-    {
-        return [
-            'string' => ['NaN'],
-            'null value' => [0],
-            'negative value' => [-1],
-        ];
-    }
-
     public function testCommandAcceptPositiveInteger()
     {
         $elementsPerCard = rand();
@@ -37,6 +28,15 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
             sprintf('/Elements per card %d/', $elementsPerCard),
             $this->cmdTester->getDisplay()
         );
+    }
+
+    public function invalidValues()
+    {
+        return [
+            'string' => ['NaN'],
+            'null value' => [0],
+            'negative value' => [-1],
+        ];
     }
 
     /**
