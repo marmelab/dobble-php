@@ -39,19 +39,16 @@ class Deck implements \Countable
     public function validate()
     {
         if (!count($this)) {
-            // The deck is empty
-            return false;
+            throw new DobbleException('The deck is empty');
         }
 
         if (count(array_unique($this->cards)) < count($this)) {
-            // The deck has two or more identical cards
-            return false;
+            throw new DobbleException('The deck has two or more identical cards.');
         }
 
-        $count_all_cards = array_map('count', $this->cards);
-        if (count(array_unique($count_all_cards)) > 1) {
-            // Cards do not have the same number of symbol
-            return false;
+        $countAllCards = array_map('count', $this->cards);
+        if (count(array_unique($countAllCards)) > 1) {
+            throw new DobbleException('Cards do not have different number of symbol');
         }
 
         return true;
