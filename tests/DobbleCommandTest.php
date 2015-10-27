@@ -1,6 +1,6 @@
 <?php
 
-use Dobble\DobbleCommand;
+use Marmelab\Dobble\DobbleCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 

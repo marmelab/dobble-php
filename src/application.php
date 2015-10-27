@@ -3,7 +3,7 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use Dobble\DobbleCommand;
+use Marmelab\Dobble\DobbleCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();

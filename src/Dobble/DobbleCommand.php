@@ -1,6 +1,6 @@
 <?php
 
-namespace Dobble;
+namespace Marmelab\Dobble;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
