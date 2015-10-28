@@ -4,7 +4,7 @@ namespace Marmelab\Dobble;
 
 abstract class DeckValidator
 {
-    public function validate($deck)
+    public static function validate($deck)
     {
         self::validateDeckIsNotEmpty($deck);
         self::validateDeckHasNoIdenticalCards($deck);
@@ -14,21 +14,21 @@ abstract class DeckValidator
         return true;
     }
 
-    public function validateDeckIsNotEmpty($deck)
+    public static function validateDeckIsNotEmpty($deck)
     {
         if (!count($deck)) {
             throw new DobbleException('The deck is empty');
         }
     }
 
-    public function validateDeckHasNoIdenticalCards($deck)
+    public static function validateDeckHasNoIdenticalCards($deck)
     {
         if (count(array_unique($deck->getCards())) < count($deck)) {
             throw new DobbleException('The deck has two or more identical cards');
         }
     }
 
-    public function validateDeckCardsHaveSameSymbolNumber($deck)
+    public static function validateDeckCardsHaveSameSymbolNumber($deck)
     {
         $countAllCards = array_map('count', $deck->getCards());
         if (count(array_unique($countAllCards)) > 1) {
@@ -36,7 +36,7 @@ abstract class DeckValidator
         }
     }
 
-    public function validateDeckCardsHaveUniqueSymbolsCouple($deck)
+    public static function validateDeckCardsHaveUniqueSymbolsCouple($deck)
     {
         $symbols = array();
 
