@@ -6,13 +6,13 @@ class DeckGenerator
 {
     private $elementsPerCard = 0;
 
-    public function __construct(int $elementPerCard)
+    public function __construct(int $elementsPerCard)
     {
-        if ($elementPerCard <= 0) {
+        if ($elementsPerCard <= 0) {
             throw new \InvalidArgumentException();
         }
 
-        $this->elementsPerCard = $elementPerCard;
+        $this->elementsPerCard = $elementsPerCard;
     }
 
     private function getSymbol($index = 0)
@@ -23,25 +23,19 @@ class DeckGenerator
     private function getSymbolRange($n, $index = 0)
     {
         $symbols = [];
-        $i = $index;
 
-        for (; $i < $index + $n; ++$i) {
+        for ($i = 0, $c = $index + $n; $i < $c; ++$i) {
             array_push($symbols, $this->getSymbol($i));
         }
 
         return $symbols;
     }
 
-    private function buildCard($card)
-    {
-        return new Card($card);
-    }
-
     private function buildDeck($cards)
     {
         $cleanedCards = [];
         foreach ($cards as $card) {
-            array_push($cleanedCards, $this->buildCard($card));
+            array_push($cleanedCards, new Card($card));
         }
 
         return new Deck($cleanedCards);
