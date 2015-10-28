@@ -51,13 +51,4 @@ class DobbleDeckValidatorTest extends \PHPUnit_Framework_TestCase
         $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
         DeckValidator::validate($deck);
     }
-
-    /**
-     * @expectedException \Marmelab\Dobble\DobbleException
-     */
-    public function testDeckNotValidatesMoreThanTwoSymbols()
-    {
-        $deck = new Deck([new Card([1]), new Card([1]), new Card([1])]);
-        DeckValidator::validate($deck);
-    }
 }
