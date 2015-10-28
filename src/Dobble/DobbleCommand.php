@@ -32,7 +32,8 @@ class DobbleCommand extends Command
         }
 
         try {
-            $deck = Deck::generate($nbElements);
+            $generator = new DeckGenerator($nbElements);
+            $deck = $generator->generate();
         } catch (DobbleException $e) {
             $output->writeln(sprintf('Error: <error>%s</error>', $e->getMessage()));
 
