@@ -1,6 +1,6 @@
 <?php
 
-use Dobble\DobbleCommand;
+use Marmelab\Dobble\DobbleCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -15,16 +15,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         $this->cmdTester = new CommandTester($this->cmd);
     }
 
-    public function invalidValues()
-    {
-        return [
-            'string' => ['NaN'],
-            'null value' => [0],
-            'negative value' => [-1],
-        ];
-    }
-
-    public function testCommandAcceptPositiveInteger()
+    public function testCommandAcceptsPositiveInteger()
     {
         $elementsPerCard = rand();
 
@@ -34,15 +25,24 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertRegExp(
-            sprintf('/Elements per card %d/', $elementsPerCard),
+            sprintf('/Elements per card: %d/', $elementsPerCard),
             $this->cmdTester->getDisplay()
         );
+    }
+
+    public function invalidValues()
+    {
+        return [
+            'string' => ['NaN'],
+            'null value' => [0],
+            'negative value' => [-1],
+        ];
     }
 
     /**
      * @dataProvider invalidValues
      */
-    public function testCommandRefuseNonPositiveInteger($value)
+    public function testCommandRefusesNonPositiveInteger($value)
     {
         $this->cmdTester->execute([
             'command' => $this->cmd->getName(),
@@ -50,7 +50,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertRegExp(
-            '/must be a postive integer/',
+            '/must be a positive integer/',
             $this->cmdTester->getDisplay()
         );
     }
