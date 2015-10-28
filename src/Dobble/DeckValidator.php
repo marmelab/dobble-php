@@ -1,4 +1,5 @@
 <?php
+
 namespace Marmelab\Dobble;
 
 class DeckValidator
@@ -13,7 +14,7 @@ class DeckValidator
         ];
 
         // Try all specified validators
-        foreach($validators as $validator) {
+        foreach ($validators as $validator) {
             try {
                 self::$validator($deck);
             } catch (DobbleException $e) {
@@ -26,7 +27,7 @@ class DeckValidator
         if (!empty($errors)) {
             throw new DobbleException(implode(', ', $errors));
         }
-        
+
         return true;
     }
 

@@ -1,7 +1,6 @@
 <?php
 
-use Marmelab\Dobble\Card;
-use Marmelab\Dobble\Deck;
+namespace Marmelab\Dobble;
 
 class DobbleDeckTest extends \PHPUnit_Framework_TestCase
 {

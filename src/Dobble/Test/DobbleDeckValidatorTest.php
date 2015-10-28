@@ -1,9 +1,6 @@
 <?php
 
-use Marmelab\Dobble\Card;
-use Marmelab\Dobble\Deck;
-use Marmelab\Dobble\DeckValidator;
-use Marmelab\Dobble\DobbleException;
+namespace Marmelab\Dobble;
 
 class DobbleDeckValidatorTest extends \PHPUnit_Framework_TestCase
 {
