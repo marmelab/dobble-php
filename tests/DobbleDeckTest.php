@@ -2,7 +2,6 @@
 
 use Marmelab\Dobble\Card;
 use Marmelab\Dobble\Deck;
-use Marmelab\Dobble\DobbleException;
 
 class DobbleDeckTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,47 +53,5 @@ class DobbleDeckTest extends \PHPUnit_Framework_TestCase
         $deck = new Deck($iterable);
         $this->assertTrue($deck instanceof \Countable);
         $this->assertEquals(count($deck), count($iterable));
-    }
-
-    /**
-     * @dataProvider validCards
-     */
-    public function testDeckValidatesGoodCards($iterable)
-    {
-        $deck = new Deck($iterable);
-        $this->assertTrue($deck->validate());
-    }
-
-    public function testDeckNotValidatesEmpty()
-    {
-        try {
-            $deck = new Deck();
-            $deck->validate();
-            $this->fail('Validation must not validate empty deck.');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
-    }
-
-    public function testDeckNotValidatesMultipleSameCards()
-    {
-        try {
-            $deck = new Deck([new Card([1, 2]), new Card([2, 1])]);
-            $deck->validate();
-            $this->fail('Validation must not validate multiple same cards.');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
-    }
-
-    public function testDeckNotValidatesCardWithDifferentNumberOfSymbol()
-    {
-        try {
-            $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
-            $deck->validate();
-            $this->fail('Validation must not validate cards with different number of symbol');
-        } catch (DobbleException $e) {
-            //Test pass
-        }
     }
 }

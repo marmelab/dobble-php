@@ -52,19 +52,6 @@ class Deck implements \Countable
 
     public function validate()
     {
-        if (!count($this)) {
-            throw new DobbleException('The deck is empty');
-        }
-
-        if (count(array_unique($this->cards)) < count($this)) {
-            throw new DobbleException('The deck has two or more identical cards');
-        }
-
-        $countAllCards = array_map('count', $this->cards);
-        if (count(array_unique($countAllCards)) > 1) {
-            throw new DobbleException('Cards have different number of symbol');
-        }
-
-        return true;
+        DeckValidator::validate($this);
     }
 }
