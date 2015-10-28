@@ -25,47 +25,39 @@ class DobbleDeckValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(DeckValidator::validate($deck));
     }
 
+    /**
+     * @expectedException \Marmelab\Dobble\DobbleException
+     */
     public function testDeckNotValidatesEmpty()
     {
-        try {
-            $deck = new Deck();
-            DeckValidator::validateDeckIsNotEmpty($deck);
-            $this->fail('Validation must not validate empty deck.');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
+        $deck = new Deck();
+        DeckValidator::validate($deck);
     }
 
+    /**
+     * @expectedException \Marmelab\Dobble\DobbleException
+     */
     public function testDeckNotValidatesMultipleSameCards()
     {
-        try {
-            $deck = new Deck([new Card([1, 2]), new Card([2, 1])]);
-            DeckValidator::validateDeckHasNoIdenticalCards($deck);
-            $this->fail('Validation must not validate multiple same cards.');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
+        $deck = new Deck([new Card([1, 2]), new Card([2, 1])]);
+        DeckValidator::validate($deck);
     }
 
+    /**
+     * @expectedException \Marmelab\Dobble\DobbleException
+     */
     public function testDeckNotValidatesCardWithDifferentNumberOfSymbol()
     {
-        try {
-            $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
-            DeckValidator::validateDeckCardsHaveSameSymbolNumber($deck);
-            $this->fail('Validation must not validate cards with different number of symbol');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
+        $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
+        DeckValidator::validate($deck);
     }
 
+    /**
+     * @expectedException \Marmelab\Dobble\DobbleException
+     */
     public function testDeckNotValidatesMoreThanTwoSymbols()
     {
-        try {
-            $deck = new Deck([new Card([1]), new Card([1]), new Card([1])]);
-            DeckValidator::validateDeckCardsHaveUniqueSymbolsCouple($deck);
-            $this->fail('Validation must not validate more than two same symbols');
-        } catch (DobbleException $e) {
-            // Test pass
-        }
+        $deck = new Deck([new Card([1]), new Card([1]), new Card([1])]);
+        DeckValidator::validate($deck);
     }
 }
