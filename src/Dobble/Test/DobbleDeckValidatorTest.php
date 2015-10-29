@@ -48,4 +48,23 @@ class DobbleDeckValidatorTest extends \PHPUnit_Framework_TestCase
         $deck = new Deck([new Card([1, 2]), new Card([1, 2, 3])]);
         DeckValidator::validate($deck);
     }
+
+    public function notOneAndOnlyOnePairCards()
+    {
+        return [
+            [[new Card([1, 2]), new Card([3, 4])]],
+            [[new Card([1, 2]), new Card([1, 2])]],
+            [[new Card([1, 2]), new Card([3, 4]), new Card([1, 3])]],
+        ];
+    }
+
+    /**
+     * @dataProvider notOneAndOnlyOnePairCards
+     * @expectedException \Marmelab\Dobble\DobbleException
+     */
+    public function testDeckValidatesCardsHasOneAndOnlyOnePair($cards)
+    {
+        $deck = new Deck($cards);
+        DeckValidator::validate($deck);
+    }
 }
