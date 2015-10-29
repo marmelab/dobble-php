@@ -9,23 +9,22 @@ class Card implements \Countable
      */
     private $symbols = [];
 
-    public static function getUniqueSymbols(int $elementsPerCard)
+    public static function getUniqueSymbols(int $index)
     {
-        if ($elementsPerCard <= 0) {
-            $symbols = [];
-        } elseif ($elementsPerCard <= 4) {
-            $symbols = ['heart', 'club', 'diamond', 'spade'];
-        } elseif ($elementsPerCard <= 26) {
+        if ($index < 0) {
+            $symbol = null;
+        } elseif ($index < 26) {
             $symbols = [
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                 'Y', 'Z',
             ];
+            $symbol = $symbols[$index];
         } else {
-            $symbols = range(1, $elementsPerCard);
+            $symbol = $index - 25;
         }
 
-        return $symbols;
+        return $symbol;
     }
 
     public function __construct(array $symbols)

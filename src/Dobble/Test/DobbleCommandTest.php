@@ -1,6 +1,7 @@
 <?php
 
-use Marmelab\Dobble\DobbleCommand;
+namespace Marmelab\Dobble;
+
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -17,7 +18,7 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCommandAcceptsPositiveInteger()
     {
-        $elementsPerCard = rand();
+        $elementsPerCard = rand(2, 256);
 
         $this->cmdTester->execute([
             'command' => $this->cmd->getName(),

@@ -1,7 +1,7 @@
 <phpunit>
     <testsuites>
             <testsuite name="Dobble Test Suite">
-                <directory>tests/</directory>
+                <directory>src/Dobble/Test</directory>
             </testsuite>
     </testsuites>
 </phpunit>

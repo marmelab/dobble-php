@@ -1,6 +1,6 @@
 <?php
 
-use Marmelab\Dobble\Card;
+namespace Marmelab\Dobble;
 
 class DobbleCardTest extends \PHPUnit_Framework_TestCase
 {

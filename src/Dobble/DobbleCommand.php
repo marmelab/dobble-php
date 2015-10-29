@@ -32,7 +32,8 @@ class DobbleCommand extends Command
         }
 
         try {
-            $deck = Deck::generate($nbElements);
+            $generator = new DeckGenerator($nbElements);
+            $deck = $generator->generate();
         } catch (DobbleException $e) {
             $output->writeln(sprintf('Error: <error>%s</error>', $e->getMessage()));
 
@@ -44,6 +45,9 @@ class DobbleCommand extends Command
         $output->writeln('Cards :');
         foreach ($deck->getCards() as $card) {
             $output->writeln(sprintf('- %s', $card));
+        }
+        if ($deck->validate()) {
+            $output->writeln('Deck is valid: <info>true</info>');
         }
     }
 }
