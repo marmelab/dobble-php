@@ -11,6 +11,7 @@ class DeckValidator
             'validateDeckIsNotEmpty',
             'validateDeckHasNoIdenticalCards',
             'validateDeckCardsHaveSameSymbolNumber',
+            'validateAllCardHasOnePair',
         ];
 
         // Try all specified validators
@@ -50,6 +51,25 @@ class DeckValidator
         $countAllCards = array_map('count', $deck->getCards());
         if (count(array_unique($countAllCards)) > 1) {
             throw new DobbleException('Cards have different number of symbol');
+        }
+    }
+
+    private static function validateAllCardHasOnePair($deck)
+    {
+        foreach ($deck->getCards() as $card) {
+            foreach ($deck->getCards() as $pair) {
+                if ($card != $pair) {
+                    $similarSymbols = array_intersect(
+                        $card->getSymbols(),
+                        $pair->getSymbols()
+                    );
+
+                    if (count($similarSymbols) !== 1) {
+                        $error = 'At least one card has not one and only one pair with another card.';
+                        throw new DobbleException($error);
+                    }
+                }
+            }
         }
     }
 }

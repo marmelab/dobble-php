@@ -24,3 +24,14 @@ php src/application.php dobble:run -h
 ```bash
 make test
 ```
+
+# Rules
+Dobble rules implemented in this software :
+
+- There is at least one card
+
+- Each card is unique
+
+- All cards have same amount of symbols
+
+- A card has one and only one pair with all other cards
