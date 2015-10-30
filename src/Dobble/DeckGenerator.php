@@ -201,25 +201,27 @@ class DeckGenerator
      */
     private function calculateModulo($nbSymbols)
     {
-        $delta = -3 + 4 * $nbSymbols;
+        $DELTA_LINEAR_NUMBER = -3;
+        $DELTA_QUADRIC_NUMBER = 4;
+
+        $delta = $DELTA_QUADRIC_NUMBER * $nbSymbols + $DELTA_LINEAR_NUMBER;
 
         if ($delta < 0) {
             return false;
-        } elseif ($delta == 0) {
-            $r = sqrt($delta) / 2;
-            return (int)$r;
-        } else {
-            $r1 = (1 + sqrt($delta)) / 2;
-            $r2 = (1 - sqrt($delta)) / 2;
-
-            if ($r1 > 0) {
-                return (int)$r1;
-            } elseif ($r2 > 0) {
-                return (int)$r2;
-            } else {
-                return false;
-            }
         }
+
+        $r1 = (1 + sqrt($delta)) / 2;
+        $r2 = (1 - sqrt($delta)) / 2;
+
+        if ($r1 > 0) {
+            return (int) $r1;
+        }
+
+        if ($r2 > 0) {
+            return (int) $r2;
+        }
+
+        return false;
     }
 
     private function generateDefault()
@@ -237,9 +239,10 @@ class DeckGenerator
 
         $deck = $this->buildDeck($cards);
 
-        // This method can generate unvalid deck
-        // So we try it before to return it
+        // This method can generate invalid decks
+        // So we try it before returning
         $deck->validate();
+
         return $deck;
     }
 
@@ -247,8 +250,7 @@ class DeckGenerator
     {
         if ($this->mode == self::ALGO_DEFAULT) {
             return $this->generateDefault();
-        } else {
-            return $this->generateMini();
         }
+        return $this->generateMini();
     }
 }
