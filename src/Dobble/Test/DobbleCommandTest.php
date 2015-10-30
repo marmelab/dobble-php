@@ -20,10 +20,19 @@ class DobbleCommandTest extends \PHPUnit_Framework_TestCase
     {
         $elementsPerCard = rand(2, 256);
 
-        $this->cmdTester->execute([
+        $commandOptions = [
             'command' => $this->cmd->getName(),
             'elements_per_card' => $elementsPerCard,
-        ]);
+        ];
+
+        // If the number of elements per card becomes too high
+        // the default algo isn't optimized and crash into timeout
+        // so we need to force the "mini" algo for high amount of elements
+        if ($elementsPerCard > 23) {
+            $commandOptions['--mini'] = true;
+        }
+
+        $this->cmdTester->execute($commandOptions);
 
         $this->assertRegExp(
             sprintf('/Elements per card: %d/', $elementsPerCard),
